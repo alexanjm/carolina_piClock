@@ -12,8 +12,10 @@ $ conda install lxm
 Example usage:
 ```bash
 $ ./unc_bball.py
+
 GAMEDAY: Sat 02/25
-     Pittsburgh
-      12:00 PM
+    Pittsburgh
+     12:00 PM
+
 ```
 
