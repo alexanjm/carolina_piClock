@@ -57,26 +57,26 @@ from datetime import datetime, time
 
 
 schools = ['UNC Pembroke (exhibition)', 'Tulane', 'Chattanooga', 'Long Beach State', 'Hawaii (8:00 PM HT/1:00 AM ET)',
-		   'Chaminade', 'Oklahoma State', 'Wisconsin', 'Indiana', 'Radford', 'Davidson', 'Tennessee', 'Kentucky',
-		   'Northern Iowa', 'Monmouth', 'Georgia Tech *', 'Clemson *', 'N.C. State *', 'Wake Forest *',
-		   'Florida State *', 'Syracuse *', 'Boston College *', 'Virginia Tech *', 'Miami *', 'Pittsburgh *',
-		   'Notre Dame *', 'Duke *', 'N.C. State *', 'Virginia *', 'Louisville *', 'Pittsburgh *', 'Virginia *',
-		   'Duke *', 'ACC First Round', 'ACC Second Round', 'ACC Quarterfinal', 'ACC Semifinal', 'ACC Final']
+           'Chaminade', 'Oklahoma State', 'Wisconsin', 'Indiana', 'Radford', 'Davidson', 'Tennessee', 'Kentucky',
+           'Northern Iowa', 'Monmouth', 'Georgia Tech *', 'Clemson *', 'N.C. State *', 'Wake Forest *',
+           'Florida State *', 'Syracuse *', 'Boston College *', 'Virginia Tech *', 'Miami *', 'Pittsburgh *',
+           'Notre Dame *', 'Duke *', 'N.C. State *', 'Virginia *', 'Louisville *', 'Pittsburgh *', 'Virginia *',
+           'Duke *', 'ACC First Round', 'ACC Second Round', 'ACC Quarterfinal', 'ACC Semifinal', 'ACC Final']
 dates = ['Fri, Nov 04', 'Fri, Nov 11', 'Sun, Nov 13', 'Tue, Nov 15', 'Fri, Nov 18', 'Mon, Nov 21', 'Tue, Nov 22',
-		 'Wed, Nov 23', 'Wed, Nov 30', 'Sun, Dec 04', 'Wed, Dec 07', 'Sun, Dec 11', 'Sat, Dec 17', 'Wed, Dec 21',
-		 'Wed, Dec 28', 'Sat, Dec 31', 'Tue, Jan 03', 'Sun, Jan 08', 'Wed, Jan 11', 'Sat, Jan 14', 'Mon, Jan 16',
-		 'Sat, Jan 21', 'Thu, Jan 26', 'Sat, Jan 28', 'Tue, Jan 31', 'Sun, Feb 05', 'Thu, Feb 09', 'Wed, Feb 15',
-		 'Sat, Feb 18', 'Wed, Feb 22', 'Sat, Feb 25', 'Mon, Feb 27', 'Sat, Mar 04', 'Tue, Mar 07', 'Wed, Mar 08',
-		 'Thu, Mar 09', 'Fri, Mar 10', 'Sat, Mar 11']
+         'Wed, Nov 23', 'Wed, Nov 30', 'Sun, Dec 04', 'Wed, Dec 07', 'Sun, Dec 11', 'Sat, Dec 17', 'Wed, Dec 21',
+         'Wed, Dec 28', 'Sat, Dec 31', 'Tue, Jan 03', 'Sun, Jan 08', 'Wed, Jan 11', 'Sat, Jan 14', 'Mon, Jan 16',
+         'Sat, Jan 21', 'Thu, Jan 26', 'Sat, Jan 28', 'Tue, Jan 31', 'Sun, Feb 05', 'Thu, Feb 09', 'Wed, Feb 15',
+         'Sat, Feb 18', 'Wed, Feb 22', 'Sat, Feb 25', 'Mon, Feb 27', 'Sat, Mar 04', 'Tue, Mar 07', 'Wed, Mar 08',
+         'Thu, Mar 09', 'Fri, Mar 10', 'Sat, Mar 11']
 times = ['7:30 PM', '9:00 PM', '4:00 PM', '8:00 PM', '1:00 AM', '11:30 PM', '10:30 PM', '9:30 PM', '9:00 PM', '2:00 PM',
-		 '9:00 PM', '5:00 PM', '5:45 PM', '8:00 PM', '7:00 PM', '12:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '2:00 PM',
-		 '7:00 PM', '12:00 PM', '8:00 PM', '1:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '8:00 PM', '8:20 PM', '9:00 PM',
-		 '12:00 PM', '7:00 PM', '8:00 PM', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA']
+         '9:00 PM', '5:00 PM', '5:45 PM', '8:00 PM', '7:00 PM', '12:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '2:00 PM',
+         '7:00 PM', '12:00 PM', '8:00 PM', '1:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '8:00 PM', '8:20 PM', '9:00 PM',
+         '12:00 PM', '7:00 PM', '8:00 PM', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA']
 results = ['124 - 63', '95 - 75(W)', '97 - 57(W)', '93 - 67(W)', '83 - 68(W)', '104 - 61(W)', '107 - 75(W)',
-		   '71 - 56(W)', '67 - 76(L)', '95 - 50(W)', '83 - 74(W)', '73 - 71(W)', '100 - 103(L)', '85 - 42(W)',
-		   '102 - 74(W)', '63 - 75(L)', '89 - 86(W) OT', '107 - 56(W)', '93 - 87(W)', '96 - 83(W)', '85 - 68(W)',
-		   '90 - 82(W)', '91 - 72(W)', '62 - 77(L)', '80 - 78(W)', '83 - 76(W)', '78 - 86(L)', '97 - 73(W)',
-		   '65 - 41(W)', '74 - 63(W)', '', '', '', '', '', '', '', '']
+           '71 - 56(W)', '67 - 76(L)', '95 - 50(W)', '83 - 74(W)', '73 - 71(W)', '100 - 103(L)', '85 - 42(W)',
+           '102 - 74(W)', '63 - 75(L)', '89 - 86(W) OT', '107 - 56(W)', '93 - 87(W)', '96 - 83(W)', '85 - 68(W)',
+           '90 - 82(W)', '91 - 72(W)', '62 - 77(L)', '80 - 78(W)', '83 - 76(W)', '78 - 86(L)', '97 - 73(W)',
+           '65 - 41(W)', '74 - 63(W)', '', '', '', '', '', '', '', '']
 
 ###########################
 # Function to put years on end of dates
@@ -89,64 +89,65 @@ season_year1 = now.year - 1
 # print(season_year1, season_year2)
 date_year = []
 for x in dates:
-	end_months = ['Oct', 'Nov', 'Dec']
-	if end_months[0] in x:
-		date_year_str = str(x) + ' ' + str(season_year1)
-		date_year.append(date_year_str)
-	# print(date_year_str)
-	elif end_months[1] in x:
-		date_year_str = str(x) + ' ' + str(season_year1)
-		date_year.append(date_year_str)
-	# print(date_year_str)
-	elif end_months[2] in x:
-		date_year_str = str(x) + ' ' + str(season_year1)
-		date_year.append(date_year_str)
-	# print(date_year_str)
-	else:
-		date_year_str = str(x) + ' ' + str(season_year2)
-		date_year.append(date_year_str)
-	# print(date_year_str)
-	# print(date_year)
+    end_months = ['Oct', 'Nov', 'Dec']
+    if end_months[0] in x:
+        date_year_str = str(x) + ' ' + str(season_year1)
+        date_year.append(date_year_str)
+    # print(date_year_str)
+    elif end_months[1] in x:
+        date_year_str = str(x) + ' ' + str(season_year1)
+        date_year.append(date_year_str)
+    # print(date_year_str)
+    elif end_months[2] in x:
+        date_year_str = str(x) + ' ' + str(season_year1)
+        date_year.append(date_year_str)
+    # print(date_year_str)
+    else:
+        date_year_str = str(x) + ' ' + str(season_year2)
+        date_year.append(date_year_str)
+    # print(date_year_str)
+    # print(date_year)
 # print('length:', len(date_year))
 
 dt_new = []
 dt_raw = []
 for x in date_year:
-	dt = datetime.strptime(x, '%a, %b %d %Y')
-	dt_raw.append(dt)
-	dt_fmt = dt.strftime('%a %m/%d')
-	dt_new.append(dt_fmt)
+    dt = datetime.strptime(x, '%a, %b %d %Y')
+    dt_raw.append(dt)
+    dt_fmt = dt.strftime('%a %m/%d')
+    dt_new.append(dt_fmt)
 
 
 # print(dt_new)
 # print(dt_raw)
 
-############################### - Year function - ####################
+####################### - Year function - ####################
 
 
 
 def get_latest_time(date_list):
-	diff_list = []
-	now = datetime.now()
-	for x in date_list:
-		# print('date list', x, 'now', now)
-		diff = x - now
-		# print('diff', diff)
-		diff_days = diff.days
-		# print('days', diff_days)
-		diff_list.append(diff_days)
-	diff_list_abs = [abs(number) for number in diff_list]
-	gameday = min(diff_list_abs)
-	indice_num = diff_list_abs.index(gameday)
-	if diff_list[indice_num] >= 0:
-		#print('GAMEDAY:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', times[indice_num].center(18, ' '))
-		future_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], schools[indice_num][:-2].center(18, ' '), times[indice_num].center(18, ' '))
-		return future_str
-	else:
-		#print('RESULT:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', results[indice_num].center(18, ' '))
-		past_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], schools[indice_num][:-2].center(18, ' '), times[indice_num].center(18, ' '))
-		return past_str
-
+    diff_list = []
+    now_time = datetime.now()
+    for z in date_list:
+        # print('date list', x, 'now', now)
+        diff = z - now_time
+        # print('diff', diff)
+        diff_days = diff.days
+        # print('days', diff_days)
+        diff_list.append(diff_days)
+    diff_list_abs = [abs(number) for number in diff_list]
+    gameday = min(diff_list_abs)
+    indice_num = diff_list_abs.index(gameday)
+    if diff_list[indice_num] >= 0:
+        # print('GAMEDAY:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', times[indice_num].center(18, ' '))
+        future_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], schools[indice_num][:-2].center(18, ' '),
+                                                  times[indice_num].center(18, ' '))
+        return future_str
+    else:
+        # print('RESULT:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', results[indice_num].center(18, ' '))
+        past_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], schools[indice_num][:-2].center(18, ' '),
+                                               times[indice_num].center(18, ' '))
+        return past_str
 
 
 print(get_latest_time(dt_raw))
