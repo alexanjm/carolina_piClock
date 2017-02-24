@@ -139,14 +139,17 @@ def get_latest_time(date_list):
 	gameday = min(diff_list_abs)
 	indice_num = diff_list_abs.index(gameday)
 	if diff_list[indice_num] >= 0:
-		print(len(schools[indice_num]))
-		print('GAMEDAY:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', times[indice_num].center(18, ' '))
+		#print('GAMEDAY:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', times[indice_num].center(18, ' '))
+		future_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], schools[indice_num][:-2].center(18, ' '), times[indice_num].center(18, ' '))
+		return future_str
 	else:
-		print('RESULT:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', results[indice_num].center(18, ' '))
-	# print('diff list', diff_list)
+		#print('RESULT:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', results[indice_num].center(18, ' '))
+		past_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], schools[indice_num][:-2].center(18, ' '), times[indice_num].center(18, ' '))
+		return past_str
 
 
-get_latest_time(dt_raw)
+
+print(get_latest_time(dt_raw))
 
 
 
