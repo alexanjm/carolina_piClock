@@ -163,7 +163,7 @@ def get_latest_time(date_list):
         diff_list.append(diff_days)
     diff_list_abs = [abs(number) for number in diff_list]
     gameday = min(diff_list_abs)
-    indice_num = diff_list_abs.index(gameday) - 5
+    indice_num = diff_list_abs.index(gameday)
 
     if diff_list[indice_num] >= 0:
         game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
