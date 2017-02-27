@@ -166,17 +166,14 @@ def get_latest_time(date_list):
     indice_num = diff_list_abs.index(gameday)
 
     if diff_list[indice_num] >= 0:
-        # print('GAMEDAY:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', times[indice_num].center(18, ' '))
-        future_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
+        game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
                                                   times[indice_num].center(18, ' '))
         if indice_num in gametime_warning:
-            future_str = future_str + '\nCheck local listing for game time and opponent.\n'
-        return future_str
+            game_str = future_str + '\nCheck local listing for game time and opponent.\n'
     else:
-        # print('RESULT:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', results[indice_num].center(18, ' '))
-        past_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
+        game_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
                                                times[indice_num].center(18, ' '))
-        return past_str
+    return game_str
 
 
 print(get_latest_time(dt_raw))
