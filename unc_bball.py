@@ -78,9 +78,34 @@ results = ['124 - 63', '95 - 75(W)', '97 - 57(W)', '93 - 67(W)', '83 - 68(W)', '
            '90 - 82(W)', '91 - 72(W)', '62 - 77(L)', '80 - 78(W)', '83 - 76(W)', '78 - 86(L)', '97 - 73(W)',
            '65 - 41(W)', '74 - 63(W)', '', '', '', '', '', '', '', '']
 
+
+## Dealing with TBA in the datetime strpfmt: manually adding a 12PM tip time with a warning to check local listings
+new_game_time = []
+gametime_warning = []
+x = 0
+for game_time in times:
+    if game_time == 'TBA':
+        game_time = '12:00 PM'
+        new_game_time.append(game_time)
+        gametime_warning.append(x)
+        x += 1
+    else:
+        new_game_time.append(game_time)
+        x += 1
+
+new_team_name = []
+for team in schools:
+    if '*' in team:
+        new_team_name.append(team[:-2])
+    else:
+        new_team_name.append(team)
+
+
+
 ###########################
 # Function to put years on end of dates
 # TO DO: -- TURN THIS INTO A FUNCTION
+## Add time to each "gameday"
 now = datetime.now()
 # print(now)
 
@@ -91,28 +116,28 @@ date_year = []
 for x in dates:
     end_months = ['Oct', 'Nov', 'Dec']
     if end_months[0] in x:
-        date_year_str = str(x) + ' ' + str(season_year1)
+        date_year_str = str(x) + ' ' + str(season_year1) + ' ' + new_game_time[dates.index(x)]
         date_year.append(date_year_str)
     # print(date_year_str)
     elif end_months[1] in x:
-        date_year_str = str(x) + ' ' + str(season_year1)
+        date_year_str = str(x) + ' ' + str(season_year1) + ' ' + new_game_time[dates.index(x)]
         date_year.append(date_year_str)
     # print(date_year_str)
     elif end_months[2] in x:
-        date_year_str = str(x) + ' ' + str(season_year1)
+        date_year_str = str(x) + ' ' + str(season_year1) + ' ' + new_game_time[dates.index(x)]
         date_year.append(date_year_str)
     # print(date_year_str)
     else:
-        date_year_str = str(x) + ' ' + str(season_year2)
+        date_year_str = str(x) + ' ' + str(season_year2) + ' ' + new_game_time[dates.index(x)]
         date_year.append(date_year_str)
     # print(date_year_str)
     # print(date_year)
-# print('length:', len(date_year))
+# print('length:', len(date_year
 
 dt_new = []
 dt_raw = []
 for x in date_year:
-    dt = datetime.strptime(x, '%a, %b %d %Y')
+    dt = datetime.strptime(x, '%a, %b %d %Y %I:%M %p')
     dt_raw.append(dt)
     dt_fmt = dt.strftime('%a %m/%d')
     dt_new.append(dt_fmt)
@@ -131,6 +156,7 @@ def get_latest_time(date_list):
     for z in date_list:
         # print('date list', x, 'now', now)
         diff = z - now_time
+
         # print('diff', diff)
         diff_days = diff.days
         # print('days', diff_days)
@@ -138,14 +164,17 @@ def get_latest_time(date_list):
     diff_list_abs = [abs(number) for number in diff_list]
     gameday = min(diff_list_abs)
     indice_num = diff_list_abs.index(gameday)
+
     if diff_list[indice_num] >= 0:
         # print('GAMEDAY:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', times[indice_num].center(18, ' '))
-        future_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], schools[indice_num][:-2].center(18, ' '),
+        future_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
                                                   times[indice_num].center(18, ' '))
+        if indice_num in gametime_warning:
+            future_str = future_str + '\nCheck local listing for game time and opponent.\n'
         return future_str
     else:
         # print('RESULT:', dt_new[indice_num], '\n', schools[indice_num][:-2].center(18, ' '), '\n', results[indice_num].center(18, ' '))
-        past_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], schools[indice_num][:-2].center(18, ' '),
+        past_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
                                                times[indice_num].center(18, ' '))
         return past_str
 
