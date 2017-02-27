@@ -163,16 +163,24 @@ def get_latest_time(date_list):
         diff_list.append(diff_days)
     diff_list_abs = [abs(number) for number in diff_list]
     gameday = min(diff_list_abs)
-    indice_num = diff_list_abs.index(gameday)
+    indice_num = diff_list_abs.index(gameday) - 5
 
     if diff_list[indice_num] >= 0:
         game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
                                                   times[indice_num].center(18, ' '))
         if indice_num in gametime_warning:
             game_str = future_str + '\nCheck local listing for game time and opponent.\n'
+    elif 'L' in results[indice_num]:
+            # game_str = '\n%s sucks\n' % (new_team_name[indice_num])
+            # If the result is a loss, go ahead and display the next game info -- or uncomment the above and comment
+            # the 4 lines of code below to display "<team> sucks"
+            game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num + 1], new_team_name[indice_num + 1].center(18, ' '),
+                                                    times[indice_num + 1].center(18, ' '))
+            if indice_num in gametime_warning:
+                game_str = future_str + '\nCheck local listing for game time and opponent.\n'
     else:
-        game_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
-                                               times[indice_num].center(18, ' '))
+            game_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
+                                               results[indice_num].center(18, ' '))
     return game_str
 
 

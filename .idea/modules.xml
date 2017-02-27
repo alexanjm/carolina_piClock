@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/carolina_pyClock.iml" filepath="$PROJECT_DIR$/.idea/carolina_pyClock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../.idea/github_repos.iml" filepath="$PROJECT_DIR$/../.idea/github_repos.iml" />
     </modules>
   </component>
 </project>
