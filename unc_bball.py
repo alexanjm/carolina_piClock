@@ -93,14 +93,17 @@ for game_time in times:
         new_game_time.append(game_time)
         x += 1
 
-new_team_name = []
-for team in schools:
-    if '*' in team:
-        new_team_name.append(team[:-2])
-    else:
-        new_team_name.append(team)
 
+def clean_opponent_names():
+    new_team_name = []
+    for team in schools:
+        if '*' in team:
+            new_team_name.append(team[:-2])
+        else:
+            new_team_name.append(team)
+    return(new_team_name)
 
+new_team_name = clean_opponent_names()
 
 ###########################
 # Function to put years on end of dates
@@ -134,14 +137,17 @@ for x in dates:
     # print(date_year)
 # print('length:', len(date_year
 
-dt_new = []
-dt_raw = []
-for x in date_year:
-    dt = datetime.strptime(x, '%a, %b %d %Y %I:%M %p')
-    dt_raw.append(dt)
-    dt_fmt = dt.strftime('%a %m/%d')
-    dt_new.append(dt_fmt)
+def pretty_dates(year):
+    dt_new = []
+    dt_raw = []
+    for x in year:
+        dt = datetime.strptime(x, '%a, %b %d %Y %I:%M %p')
+        dt_raw.append(dt)
+        dt_fmt = dt.strftime('%a %m/%d')
+        dt_new.append(dt_fmt)
+    return dt_new, dt_raw
 
+dt_new, dt_raw = pretty_dates(date_year)
 
 # print(dt_new)
 # print(dt_raw)
@@ -150,7 +156,7 @@ for x in date_year:
 
 
 
-def get_latest_time(date_list):
+def get_latest_time(date_list, team_names):
     diff_list = []
     now_time = datetime.now()
     for z in date_list:
@@ -166,7 +172,7 @@ def get_latest_time(date_list):
     indice_num = diff_list_abs.index(gameday)
 
     if diff_list[indice_num] >= 0:
-        game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
+        game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], team_names[indice_num].center(18, ' '),
                                                   times[indice_num].center(18, ' '))
         if indice_num in gametime_warning:
             game_str = future_str + '\nCheck local listing for game time and opponent.\n'
@@ -174,17 +180,18 @@ def get_latest_time(date_list):
             # game_str = '\n%s sucks\n' % (new_team_name[indice_num])
             # If the result is a loss, go ahead and display the next game info -- or uncomment the above and comment
             # the 4 lines of code below to display "<team> sucks"
-            game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num + 1], new_team_name[indice_num + 1].center(18, ' '),
+            game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num + 1], team_names[indice_num + 1].center(18, ' '),
                                                     times[indice_num + 1].center(18, ' '))
             if indice_num in gametime_warning:
                 game_str = future_str + '\nCheck local listing for game time and opponent.\n'
     else:
-            game_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], new_team_name[indice_num].center(18, ' '),
+            game_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], team_names[indice_num].center(18, ' '),
                                                results[indice_num].center(18, ' '))
     return game_str
 
 
-print(get_latest_time(dt_raw))
+GAMEDAY = get_latest_time(dt_raw, new_team_name)
+print(GAMEDAY)
 
 
 
