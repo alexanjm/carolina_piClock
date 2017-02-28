@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55c0f6df-baac-4a2c-98fa-d4fde3cff2db" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unc_bball.py" afterPath="$PROJECT_DIR$/unc_bball.py" />
-    </list>
+    <list default="true" id="55c0f6df-baac-4a2c-98fa-d4fde3cff2db" name="Default" comment="" />
     <ignored path="carolina_pyClock.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,10 +19,10 @@
     <favorites_list name="carolina_pyClock" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.7340909">
+    <splitter split-orientation="horizontal" split-proportion="0.5189394">
       <split-first>
         <leaf>
-          <file leaf-file-name="unc_bball.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="unc_bball.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/unc_bball.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="698">
@@ -45,13 +42,13 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ultimate_parser.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="ultimate_parser.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/../alex_work_scripts/ultimate_parser.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="766">
-                  <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
+                <state relative-caret-position="715">
+                  <caret line="62" column="9" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
                   <folding>
-                    <element signature="e#74#83#0" expanded="true" />
+                    <element signature="e#86#96#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -64,10 +61,11 @@
           <file leaf-file-name="ultimate_parser.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/../alex_work_scripts/ultimate_parser.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="272">
-                  <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+                <state relative-caret-position="255">
+                  <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
                   <folding>
-                    <element signature="e#74#83#0" expanded="true" />
+                    <marker date="1488231978000" expanded="true" signature="76:112" ph="import ..." />
+                    <marker date="1488231978000" expanded="true" signature="367:1106" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -76,7 +74,7 @@
           <file leaf-file-name="parse_blastn_table.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/../alex_work_scripts/parse_blastn_table.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-255">
+                <state relative-caret-position="-1445">
                   <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
                   <folding />
                 </state>
@@ -106,8 +104,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/../alex_work_scripts/submit.py" />
-        <option value="$PROJECT_DIR$/../alex_work_scripts/ultimate_parser.py" />
         <option value="$PROJECT_DIR$/unc_bball.py" />
+        <option value="$PROJECT_DIR$/../alex_work_scripts/ultimate_parser.py" />
       </list>
     </option>
   </component>
@@ -504,19 +502,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../alex_work_scripts/parse_blastn_table.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-255">
+        <state relative-caret-position="-1445">
           <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../alex_work_scripts/ultimate_parser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="766">
-          <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
-          <folding>
-            <element signature="e#74#83#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -525,6 +513,16 @@
         <state relative-caret-position="698">
           <caret line="165" column="45" selection-start-line="165" selection-start-column="45" selection-end-line="165" selection-end-column="45" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../alex_work_scripts/ultimate_parser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="715">
+          <caret line="62" column="9" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
+          <folding>
+            <element signature="e#86#96#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
