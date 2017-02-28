@@ -5,6 +5,8 @@
 import urllib.request
 from bs4 import BeautifulSoup
 from datetime import datetime, time
+import sys
+import argparse
 
 # # Personal info goes here
 # target_schools = ['Boston University', 'UCLA', 'UCSD']
@@ -71,7 +73,7 @@ dates = ['Fri, Nov 04', 'Fri, Nov 11', 'Sun, Nov 13', 'Tue, Nov 15', 'Fri, Nov 1
 times = ['7:30 PM', '9:00 PM', '4:00 PM', '8:00 PM', '1:00 AM', '11:30 PM', '10:30 PM', '9:30 PM', '9:00 PM', '2:00 PM',
          '9:00 PM', '5:00 PM', '5:45 PM', '8:00 PM', '7:00 PM', '12:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '2:00 PM',
          '7:00 PM', '12:00 PM', '8:00 PM', '1:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '8:00 PM', '8:20 PM', '9:00 PM',
-         '12:00 PM', '7:00 PM', '8:00 PM', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA']
+         '12:00 PM', '7:00 PM', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA']
 results = ['124 - 63', '95 - 75(W)', '97 - 57(W)', '93 - 67(W)', '83 - 68(W)', '104 - 61(W)', '107 - 75(W)',
            '71 - 56(W)', '67 - 76(L)', '95 - 50(W)', '83 - 74(W)', '73 - 71(W)', '100 - 103(L)', '85 - 42(W)',
            '102 - 74(W)', '63 - 75(L)', '89 - 86(W) OT', '107 - 56(W)', '93 - 87(W)', '96 - 83(W)', '85 - 68(W)',
@@ -80,18 +82,20 @@ results = ['124 - 63', '95 - 75(W)', '97 - 57(W)', '93 - 67(W)', '83 - 68(W)', '
 
 
 ## Dealing with TBA in the datetime strpfmt: manually adding a 12PM tip time with a warning to check local listings
-new_game_time = []
-gametime_warning = []
-x = 0
-for game_time in times:
-    if game_time == 'TBA':
-        game_time = '12:00 PM'
-        new_game_time.append(game_time)
-        gametime_warning.append(x)
-        x += 1
-    else:
-        new_game_time.append(game_time)
-        x += 1
+def game_times(times_list):
+    new_game_time = []
+    gametime_warning = []
+    x = 0
+    for game_time in times_list:
+        if game_time == 'TBA':
+            game_time = '12:00 PM'
+            new_game_time.append(game_time)
+            gametime_warning.append(x)
+            x += 1
+        else:
+            new_game_time.append(game_time)
+            x += 1
+    return new_game_time, gametime_warning
 
 
 def clean_opponent_names():
@@ -103,39 +107,34 @@ def clean_opponent_names():
             new_team_name.append(team)
     return(new_team_name)
 
-new_team_name = clean_opponent_names()
 
-###########################
-# Function to put years on end of dates
-# TO DO: -- TURN THIS INTO A FUNCTION
-## Add time to each "gameday"
-now = datetime.now()
-# print(now)
+def set_year(dates):
+    now = datetime.now()
+    # print(now)
 
-season_year2 = now.year
-season_year1 = now.year - 1
-# print(season_year1, season_year2)
-date_year = []
-for x in dates:
-    end_months = ['Oct', 'Nov', 'Dec']
-    if end_months[0] in x:
-        date_year_str = str(x) + ' ' + str(season_year1) + ' ' + new_game_time[dates.index(x)]
-        date_year.append(date_year_str)
-    # print(date_year_str)
-    elif end_months[1] in x:
-        date_year_str = str(x) + ' ' + str(season_year1) + ' ' + new_game_time[dates.index(x)]
-        date_year.append(date_year_str)
-    # print(date_year_str)
-    elif end_months[2] in x:
-        date_year_str = str(x) + ' ' + str(season_year1) + ' ' + new_game_time[dates.index(x)]
-        date_year.append(date_year_str)
-    # print(date_year_str)
-    else:
-        date_year_str = str(x) + ' ' + str(season_year2) + ' ' + new_game_time[dates.index(x)]
-        date_year.append(date_year_str)
-    # print(date_year_str)
-    # print(date_year)
-# print('length:', len(date_year
+    season_year2 = now.year
+    season_year1 = now.year - 1
+    # print(season_year1, season_year2)
+    date_year = []
+    for x in dates:
+        end_months = ['Oct', 'Nov', 'Dec']
+        if end_months[0] in x:
+            date_year_str = str(x) + ' ' + str(season_year1) + ' ' + new_game_time[dates.index(x)]
+            date_year.append(date_year_str)
+        # print(date_year_str)
+        elif end_months[1] in x:
+            date_year_str = str(x) + ' ' + str(season_year1) + ' ' + new_game_time[dates.index(x)]
+            date_year.append(date_year_str)
+        # print(date_year_str)
+        elif end_months[2] in x:
+            date_year_str = str(x) + ' ' + str(season_year1) + ' ' + new_game_time[dates.index(x)]
+            date_year.append(date_year_str)
+        # print(date_year_str)
+        else:
+            date_year_str = str(x) + ' ' + str(season_year2) + ' ' + new_game_time[dates.index(x)]
+            date_year.append(date_year_str)
+    return date_year
+
 
 def pretty_dates(year):
     dt_new = []
@@ -147,16 +146,8 @@ def pretty_dates(year):
         dt_new.append(dt_fmt)
     return dt_new, dt_raw
 
-dt_new, dt_raw = pretty_dates(date_year)
 
-# print(dt_new)
-# print(dt_raw)
-
-####################### - Year function - ####################
-
-
-
-def get_latest_time(date_list, team_names):
+def get_latest_time(date_list, team_names, gametime_warning):
     diff_list = []
     now_time = datetime.now()
     for z in date_list:
@@ -175,26 +166,19 @@ def get_latest_time(date_list, team_names):
         game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], team_names[indice_num].center(18, ' '),
                                                   times[indice_num].center(18, ' '))
         if indice_num in gametime_warning:
-            game_str = future_str + '\nCheck local listing for game time and opponent.\n'
+            game_str += '\nCheck local listing for game time and opponent.\n'
     elif 'L' in results[indice_num]:
             # game_str = '\n%s sucks\n' % (new_team_name[indice_num])
             # If the result is a loss, go ahead and display the next game info -- or uncomment the above and comment
             # the 4 lines of code below to display "<team> sucks"
             game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num + 1], team_names[indice_num + 1].center(18, ' '),
                                                     times[indice_num + 1].center(18, ' '))
-            if indice_num in gametime_warning:
-                game_str = future_str + '\nCheck local listing for game time and opponent.\n'
+            if (indice_num + 1) in gametime_warning:
+                game_str += '\nCheck local listing for game time and opponent.\n'
     else:
             game_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], team_names[indice_num].center(18, ' '),
-                                               results[indice_num].center(18, ' '))
+                                                   results[indice_num].center(18, ' '))
     return game_str
-
-
-GAMEDAY = get_latest_time(dt_raw, new_team_name)
-print(GAMEDAY)
-
-
-
 
 
 # Store schools and dates together as a tuple
@@ -305,3 +289,26 @@ print(GAMEDAY)
 #     print 'Email sent!'
 # except:  
 #     print 'Something went wrong.'
+
+if __name__ == '__main__':
+    args = sys.argv
+    parser = argparse.ArgumentParser(description='Display recent results or upcoming games for the University of '
+                                                 'North Carolina mens basketball team')
+    # parser.add_argument('input_file', help='transdecoder file')
+    # parser.add_argument('-d', '--in_delim', help='input delimiter')
+    # parser.add_argument('-s', '--sort', help='sort column <#> by <method> (ascending, descending, alphabetical')
+    # parser.add_argument('-o', '--out_file', help='output file')
+    # parser.add_argument('-c', '--column', help='columns #s (1-?) to write to output')
+    # parser.add_argument('-hd', '--header', default='y', help='header? <y or n>')
+    in_args = parser.parse_args()
+
+    new_game_time, gametime_warning = game_times(times)
+
+    new_team_name = clean_opponent_names()
+
+    date_year = set_year(dates)
+
+    dt_new, dt_raw = pretty_dates(date_year)
+
+    GAMEDAY = get_latest_time(dt_raw, new_team_name, gametime_warning)
+    print(GAMEDAY)
