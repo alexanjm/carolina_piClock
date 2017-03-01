@@ -73,7 +73,7 @@ dates = ['Fri, Nov 04', 'Fri, Nov 11', 'Sun, Nov 13', 'Tue, Nov 15', 'Fri, Nov 1
 times = ['7:30 PM', '9:00 PM', '4:00 PM', '8:00 PM', '1:00 AM', '11:30 PM', '10:30 PM', '9:30 PM', '9:00 PM', '2:00 PM',
          '9:00 PM', '5:00 PM', '5:45 PM', '8:00 PM', '7:00 PM', '12:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '2:00 PM',
          '7:00 PM', '12:00 PM', '8:00 PM', '1:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '8:00 PM', '8:20 PM', '9:00 PM',
-         '12:00 PM', '7:00 PM', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA']
+         '12:00 PM', '7:00 PM', '8:00 PM', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA']
 results = ['124 - 63', '95 - 75(W)', '97 - 57(W)', '93 - 67(W)', '83 - 68(W)', '104 - 61(W)', '107 - 75(W)',
            '71 - 56(W)', '67 - 76(L)', '95 - 50(W)', '83 - 74(W)', '73 - 71(W)', '100 - 103(L)', '85 - 42(W)',
            '102 - 74(W)', '63 - 75(L)', '89 - 86(W) OT', '107 - 56(W)', '93 - 87(W)', '96 - 83(W)', '85 - 68(W)',
@@ -179,6 +179,30 @@ def get_latest_time(date_list, team_names, gametime_warning):
             game_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], team_names[indice_num].center(18, ' '),
                                                    results[indice_num].center(18, ' '))
     return game_str
+
+def record(results, schools):
+    wins = 0
+    losses = 0
+    remaining = 0
+    for result in results:
+        if 'W' in result:
+            wins += 1
+        elif 'L' in result:
+            losses += 1
+        else:
+            if result == '':
+                remaining += 1
+            else:
+                result_score = result.split('-')
+                if result_score[0] > result_score[1]:
+                    wins += 1
+                else:
+                    losses += 1
+    for school in schools:
+        if 'exh' in school:
+            wins -= 1
+    w_l_record = [wins, losses]
+    return w_l_record
 
 
 # Store schools and dates together as a tuple
@@ -311,4 +335,10 @@ if __name__ == '__main__':
     dt_new, dt_raw = pretty_dates(date_year)
 
     GAMEDAY = get_latest_time(dt_raw, new_team_name, gametime_warning)
+
+    res_record = record(results, schools)
+
+
     print(GAMEDAY)
+    record_str = '%s-%s' % (res_record[0], res_record[1])
+    print(record_str.center(18, ' '))
