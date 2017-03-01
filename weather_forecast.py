@@ -4,8 +4,7 @@
 
 import forecastio
 from datetime import datetime, timedelta
-from pytz import timezone
-import pytz
+
 
 api_key_file = 'api_key.txt'
 with open(api_key_file, 'r') as ifile:
