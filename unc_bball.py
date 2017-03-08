@@ -63,7 +63,7 @@ schools = ['UNC Pembroke (exhibition)', 'Tulane', 'Chattanooga', 'Long Beach Sta
            'Northern Iowa', 'Monmouth', 'Georgia Tech *', 'Clemson *', 'N.C. State *', 'Wake Forest *',
            'Florida State *', 'Syracuse *', 'Boston College *', 'Virginia Tech *', 'Miami *', 'Pittsburgh *',
            'Notre Dame *', 'Duke *', 'N.C. State *', 'Virginia *', 'Louisville *', 'Pittsburgh *', 'Virginia *',
-           'Duke *', 'ACC First Round', 'ACC Second Round', 'ACC Quarterfinal', 'ACC Semifinal', 'ACC Final']
+           'Duke *', 'Miami (ACC Quarterfinal)', 'ACC Second Round', 'ACC Quarterfinal', 'ACC Semifinal', 'ACC Final']
 dates = ['Fri, Nov 04', 'Fri, Nov 11', 'Sun, Nov 13', 'Tue, Nov 15', 'Fri, Nov 18', 'Mon, Nov 21', 'Tue, Nov 22',
          'Wed, Nov 23', 'Wed, Nov 30', 'Sun, Dec 04', 'Wed, Dec 07', 'Sun, Dec 11', 'Sat, Dec 17', 'Wed, Dec 21',
          'Wed, Dec 28', 'Sat, Dec 31', 'Tue, Jan 03', 'Sun, Jan 08', 'Wed, Jan 11', 'Sat, Jan 14', 'Mon, Jan 16',
@@ -73,12 +73,12 @@ dates = ['Fri, Nov 04', 'Fri, Nov 11', 'Sun, Nov 13', 'Tue, Nov 15', 'Fri, Nov 1
 times = ['7:30 PM', '9:00 PM', '4:00 PM', '8:00 PM', '1:00 AM', '11:30 PM', '10:30 PM', '9:30 PM', '9:00 PM', '2:00 PM',
          '9:00 PM', '5:00 PM', '5:45 PM', '8:00 PM', '7:00 PM', '12:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '2:00 PM',
          '7:00 PM', '12:00 PM', '8:00 PM', '1:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '8:00 PM', '8:20 PM', '9:00 PM',
-         '12:00 PM', '7:00 PM', '8:00 PM', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA']
+         '12:00 PM', '7:00 PM', '8:00 PM', '12:00 PM', '7:00 PM', '9:00 PM', 'TBA', 'TBA']
 results = ['124 - 63', '95 - 75(W)', '97 - 57(W)', '93 - 67(W)', '83 - 68(W)', '104 - 61(W)', '107 - 75(W)',
            '71 - 56(W)', '67 - 76(L)', '95 - 50(W)', '83 - 74(W)', '73 - 71(W)', '100 - 103(L)', '85 - 42(W)',
            '102 - 74(W)', '63 - 75(L)', '89 - 86(W) OT', '107 - 56(W)', '93 - 87(W)', '96 - 83(W)', '85 - 68(W)',
            '90 - 82(W)', '91 - 72(W)', '62 - 77(L)', '80 - 78(W)', '83 - 76(W)', '78 - 86(L)', '97 - 73(W)',
-           '65 - 41(W)', '74 - 63(W)', 'W', 'L', '', '', '', '', '', '']
+           '65 - 41(W)', '74 - 63(W)', 'W', 'L', '90 - 83(W)', '', '', '', '', '']
 
 
 ## Dealing with TBA in the datetime strpfmt: manually adding a 12PM tip time with a warning to check local listings
