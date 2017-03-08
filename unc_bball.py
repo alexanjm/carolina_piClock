@@ -68,8 +68,8 @@ dates = ['Fri, Nov 04', 'Fri, Nov 11', 'Sun, Nov 13', 'Tue, Nov 15', 'Fri, Nov 1
          'Wed, Nov 23', 'Wed, Nov 30', 'Sun, Dec 04', 'Wed, Dec 07', 'Sun, Dec 11', 'Sat, Dec 17', 'Wed, Dec 21',
          'Wed, Dec 28', 'Sat, Dec 31', 'Tue, Jan 03', 'Sun, Jan 08', 'Wed, Jan 11', 'Sat, Jan 14', 'Mon, Jan 16',
          'Sat, Jan 21', 'Thu, Jan 26', 'Sat, Jan 28', 'Tue, Jan 31', 'Sun, Feb 05', 'Thu, Feb 09', 'Wed, Feb 15',
-         'Sat, Feb 18', 'Wed, Feb 22', 'Sat, Feb 25', 'Mon, Feb 27', 'Sat, Mar 04', 'Tue, Mar 07', 'Wed, Mar 08',
-         'Thu, Mar 09', 'Fri, Mar 10', 'Sat, Mar 11']
+         'Sat, Feb 18', 'Wed, Feb 22', 'Sat, Feb 25', 'Mon, Feb 27', 'Sat, Mar 04', 'Thu, Mar 09', 'Fri, Mar 10',
+         'Sat, Mar 11']
 times = ['7:30 PM', '9:00 PM', '4:00 PM', '8:00 PM', '1:00 AM', '11:30 PM', '10:30 PM', '9:30 PM', '9:00 PM', '2:00 PM',
          '9:00 PM', '5:00 PM', '5:45 PM', '8:00 PM', '7:00 PM', '12:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '2:00 PM',
          '7:00 PM', '12:00 PM', '8:00 PM', '1:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '8:00 PM', '8:20 PM', '9:00 PM',
