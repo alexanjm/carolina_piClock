@@ -63,7 +63,7 @@ schools = ['UNC Pembroke (exhibition)', 'Tulane', 'Chattanooga', 'Long Beach Sta
            'Northern Iowa', 'Monmouth', 'Georgia Tech *', 'Clemson *', 'N.C. State *', 'Wake Forest *',
            'Florida State *', 'Syracuse *', 'Boston College *', 'Virginia Tech *', 'Miami *', 'Pittsburgh *',
            'Notre Dame *', 'Duke *', 'N.C. State *', 'Virginia *', 'Louisville *', 'Pittsburgh *', 'Virginia *',
-           'Duke *', 'Miami (ACC Quarterfinal)', 'ACC Second Round', 'ACC Quarterfinal', 'ACC Semifinal', 'ACC Final']
+           'Duke *', 'Miami (ACC Quarterfinal)',  'Duke ACC Semifinal', 'ACC Final']
 dates = ['Fri, Nov 04', 'Fri, Nov 11', 'Sun, Nov 13', 'Tue, Nov 15', 'Fri, Nov 18', 'Mon, Nov 21', 'Tue, Nov 22',
          'Wed, Nov 23', 'Wed, Nov 30', 'Sun, Dec 04', 'Wed, Dec 07', 'Sun, Dec 11', 'Sat, Dec 17', 'Wed, Dec 21',
          'Wed, Dec 28', 'Sat, Dec 31', 'Tue, Jan 03', 'Sun, Jan 08', 'Wed, Jan 11', 'Sat, Jan 14', 'Mon, Jan 16',
@@ -73,12 +73,12 @@ dates = ['Fri, Nov 04', 'Fri, Nov 11', 'Sun, Nov 13', 'Tue, Nov 15', 'Fri, Nov 1
 times = ['7:30 PM', '9:00 PM', '4:00 PM', '8:00 PM', '1:00 AM', '11:30 PM', '10:30 PM', '9:30 PM', '9:00 PM', '2:00 PM',
          '9:00 PM', '5:00 PM', '5:45 PM', '8:00 PM', '7:00 PM', '12:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '2:00 PM',
          '7:00 PM', '12:00 PM', '8:00 PM', '1:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '8:00 PM', '8:20 PM', '9:00 PM',
-         '12:00 PM', '7:00 PM', '8:00 PM', '12:00 PM', '7:00 PM', '9:00 PM', 'TBA', 'TBA']
+         '12:00 PM', '7:00 PM', '8:00 PM', '12:00 PM', '7:00 PM', '9:00 PM', '7:00PM', 'TBA']
 results = ['124 - 63', '95 - 75(W)', '97 - 57(W)', '93 - 67(W)', '83 - 68(W)', '104 - 61(W)', '107 - 75(W)',
            '71 - 56(W)', '67 - 76(L)', '95 - 50(W)', '83 - 74(W)', '73 - 71(W)', '100 - 103(L)', '85 - 42(W)',
            '102 - 74(W)', '63 - 75(L)', '89 - 86(W) OT', '107 - 56(W)', '93 - 87(W)', '96 - 83(W)', '85 - 68(W)',
            '90 - 82(W)', '91 - 72(W)', '62 - 77(L)', '80 - 78(W)', '83 - 76(W)', '78 - 86(L)', '97 - 73(W)',
-           '65 - 41(W)', '74 - 63(W)', 'W', 'L', '90 - 83(W)', '', '', '', '', '']
+           '65 - 41(W)', '74 - 63(W)', 'W', 'L', '90 - 83(W)', 'W', '', '', '', '']
 
 
 ## Dealing with TBA in the datetime strpfmt: manually adding a 12PM tip time with a warning to check local listings
@@ -162,23 +162,23 @@ def get_latest_time(date_list, team_names, gametime_warning):
     gameday = min(diff_list_abs)
     indice_num = diff_list_abs.index(gameday)
 
+
     if diff_list[indice_num] >= 0:
-        game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num], team_names[indice_num].center(18, ' '),
-                                                  times[indice_num].center(18, ' '))
-        if indice_num in gametime_warning:
-            game_str += '\nCheck local listing for game time and opponent.\n'
+        show_game = indice_num
+        str1 = 'GAMEDAY: '
     elif 'L' in results[indice_num]:
-            # game_str = '\n%s sucks\n' % (new_team_name[indice_num])
-            # If the result is a loss, go ahead and display the next game info -- or uncomment the above and comment
-            # the 4 lines of code below to display "<team> sucks"
-            game_str = '\nGAMEDAY: %s\n%s\n%s\n' % (dt_new[indice_num + 1], team_names[indice_num + 1].center(18, ' '),
-                                                    times[indice_num + 1].center(18, ' '))
-            if (indice_num + 1) in gametime_warning:
-                game_str += '\nCheck local listing for game time and opponent.\n'
+        show_game = indice_num + 1
+        str1 = 'GAMEDAY: '
     else:
-            game_str = '\nRESULT: %s\n%s\n%s\n' % (dt_new[indice_num], team_names[indice_num].center(18, ' '),
-                                                   results[indice_num].center(18, ' '))
+        show_game = indice_num
+        str1 = 'RESULT: '
+    game_type_date = '%s%s' % (str1, dt_new[show_game])
+    game_str = '\n%s\n%s\n%s' % (game_type_date.center(30, ' '), team_names[show_game].center(30, ' '), results[show_game].center(30, ' '))
+    if show_game in gametime_warning:
+        game_str += '\nCheck local listing for game time and opponent.\n'
+
     return game_str
+
 
 def record(results, schools):
     wins = 0
@@ -338,7 +338,6 @@ if __name__ == '__main__':
 
     res_record = record(results, schools)
 
-
     print(GAMEDAY)
     record_str = '%s-%s' % (res_record[0], res_record[1])
-    print(record_str.center(18, ' '))
+    print(record_str.center(30, ' '))
