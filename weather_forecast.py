@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # Created on: Feb 28, 2017
 
+# Testing weather report functionality for possible use to display weather data on my piClock
+
 from forecastiopy import *
 from datetime import datetime, timedelta
 
@@ -27,7 +29,7 @@ if fio.has_hourly() is True:
         time_str = datetime.strptime(real_time, "%Y-%m-%d %H:%M:%S")
         my_time = time_str.strftime("%m/%d %I %p")
         print(my_time, '\t', round(hourly.get_hour(hour)['apparentTemperature']), hourly.get_hour(hour)['icon'],
-              'Precipitation', hourly.get_hour(hour)['precipProbability'],'%')
+              'Precipitation', hourly.get_hour(hour)['precipProbability'], '%')
         # for item in hourly.get_hour(hour).keys():
         #     print(item + ' : ' + str(hourly.get_hour(hour)[item]))
         #     print(hourly.hour_3_time)
@@ -37,8 +39,8 @@ else:
 if fio.has_daily() is True:
     daily = FIODaily.FIODaily(fio)
     print('Daily')
-    #print('Summary:', daily.summary)
-    #print('Icon:', daily.icon)
+    # print('Summary:', daily.summary)
+    # print('Icon:', daily.icon)
 
     for day in range(1, daily.days()):
         print('Day', day, 'Summary: ', daily.get_day(day)['icon'])
@@ -47,7 +49,7 @@ if fio.has_daily() is True:
         #     print(item + ' : ' + str(daily.get_day(day)[item]))
         # Or access attributes directly for a given minute.
         # daily.day_7_time would also work
-        #print(daily.day_5_time)
+        # print(daily.day_5_time)
 else:
     print('No Daily data')
 # import forecastio

@@ -8,11 +8,7 @@ from datetime import datetime, time
 import sys
 import argparse
 
-# # Personal info goes here
-# target_schools = ['Boston University', 'UCLA', 'UCSD']
-# field_to_search = 'bioinformatics'
-# path = ''
-#
+# Uncomment this to scrape goheels website to get UNC basketball results/schedule
 
 # site = "http://www.goheels.com/SportSelect.dbml?SPSID=668157&SPID=12965"
 # request = urllib.request.Request(site)
@@ -57,31 +53,7 @@ import argparse
 # 	times.append(time_name)
 # print(times)
 
-
-schools = ['UNC Pembroke (exhibition)', 'Tulane', 'Chattanooga', 'Long Beach State', 'Hawaii (8:00 PM HT/1:00 AM ET)',
-           'Chaminade', 'Oklahoma State', 'Wisconsin', 'Indiana', 'Radford', 'Davidson', 'Tennessee', 'Kentucky',
-           'Northern Iowa', 'Monmouth', 'Georgia Tech *', 'Clemson *', 'N.C. State *', 'Wake Forest *',
-           'Florida State *', 'Syracuse *', 'Boston College *', 'Virginia Tech *', 'Miami *', 'Pittsburgh *',
-           'Notre Dame *', 'Duke *', 'N.C. State *', 'Virginia *', 'Louisville *', 'Pittsburgh *', 'Virginia *',
-           'Duke *', 'Miami (ACC Quarterfinal)',  'Duke ACC Semifinal', 'ACC Final']
-dates = ['Fri, Nov 04', 'Fri, Nov 11', 'Sun, Nov 13', 'Tue, Nov 15', 'Fri, Nov 18', 'Mon, Nov 21', 'Tue, Nov 22',
-         'Wed, Nov 23', 'Wed, Nov 30', 'Sun, Dec 04', 'Wed, Dec 07', 'Sun, Dec 11', 'Sat, Dec 17', 'Wed, Dec 21',
-         'Wed, Dec 28', 'Sat, Dec 31', 'Tue, Jan 03', 'Sun, Jan 08', 'Wed, Jan 11', 'Sat, Jan 14', 'Mon, Jan 16',
-         'Sat, Jan 21', 'Thu, Jan 26', 'Sat, Jan 28', 'Tue, Jan 31', 'Sun, Feb 05', 'Thu, Feb 09', 'Wed, Feb 15',
-         'Sat, Feb 18', 'Wed, Feb 22', 'Sat, Feb 25', 'Mon, Feb 27', 'Sat, Mar 04', 'Thu, Mar 09', 'Fri, Mar 10',
-         'Sat, Mar 11']
-times = ['7:30 PM', '9:00 PM', '4:00 PM', '8:00 PM', '1:00 AM', '11:30 PM', '10:30 PM', '9:30 PM', '9:00 PM', '2:00 PM',
-         '9:00 PM', '5:00 PM', '5:45 PM', '8:00 PM', '7:00 PM', '12:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '2:00 PM',
-         '7:00 PM', '12:00 PM', '8:00 PM', '1:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '8:00 PM', '8:20 PM', '9:00 PM',
-         '12:00 PM', '7:00 PM', '8:00 PM', '12:00 PM', '7:00 PM', '9:00 PM', '7:00PM', 'TBA']
-results = ['124 - 63', '95 - 75(W)', '97 - 57(W)', '93 - 67(W)', '83 - 68(W)', '104 - 61(W)', '107 - 75(W)',
-           '71 - 56(W)', '67 - 76(L)', '95 - 50(W)', '83 - 74(W)', '73 - 71(W)', '100 - 103(L)', '85 - 42(W)',
-           '102 - 74(W)', '63 - 75(L)', '89 - 86(W) OT', '107 - 56(W)', '93 - 87(W)', '96 - 83(W)', '85 - 68(W)',
-           '90 - 82(W)', '91 - 72(W)', '62 - 77(L)', '80 - 78(W)', '83 - 76(W)', '78 - 86(L)', '97 - 73(W)',
-           '65 - 41(W)', '74 - 63(W)', 'W', 'L', '90 - 83(W)', 'W', '', '', '', '']
-
-
-## Dealing with TBA in the datetime strpfmt: manually adding a 12PM tip time with a warning to check local listings
+# Dealing with TBA in the datetime strpfmt: manually adding a 12PM tip time with a warning to check local listings
 def game_times(times_list):
     new_game_time = []
     gametime_warning = []
@@ -98,17 +70,20 @@ def game_times(times_list):
     return new_game_time, gametime_warning
 
 
-def clean_opponent_names():
+# Remove symbols/whitespace from team names
+def clean_opponent_names(schools):
     new_team_name = []
     for team in schools:
         if '*' in team:
             new_team_name.append(team[:-2])
         else:
             new_team_name.append(team)
-    return(new_team_name)
+    return new_team_name
 
 
-def set_year(dates):
+# Help set year so the script can decipher which games were most recent -- basketball seasons run over '2' years
+# so this was getting tricky (2016-2017 bball season)
+def set_year(dates, new_game_time):
     now = datetime.now()
     # print(now)
 
@@ -136,6 +111,7 @@ def set_year(dates):
     return date_year
 
 
+# De-clutter dates so they are more easily read
 def pretty_dates(year):
     dt_new = []
     dt_raw = []
@@ -147,7 +123,8 @@ def pretty_dates(year):
     return dt_new, dt_raw
 
 
-def get_latest_time(date_list, team_names, gametime_warning):
+# Get the time of latest game to determine whether script should display most recent result or next game info
+def get_latest_time(date_list, team_names, gametime_warning, results, dt_new):
     diff_list = []
     now_time = datetime.now()
     for z in date_list:
@@ -162,7 +139,6 @@ def get_latest_time(date_list, team_names, gametime_warning):
     gameday = min(diff_list_abs)
     indice_num = diff_list_abs.index(gameday)
 
-
     if diff_list[indice_num] >= 0:
         show_game = indice_num
         str1 = 'GAMEDAY: '
@@ -173,13 +149,15 @@ def get_latest_time(date_list, team_names, gametime_warning):
         show_game = indice_num
         str1 = 'RESULT: '
     game_type_date = '%s%s' % (str1, dt_new[show_game])
-    game_str = '\n%s\n%s\n%s' % (game_type_date.center(30, ' '), team_names[show_game].center(30, ' '), results[show_game].center(30, ' '))
+    game_str = '\n%s\n%s\n%s' % (game_type_date.center(30, ' '), team_names[show_game].center(30, ' '),
+                                 results[show_game].center(30, ' '))
     if show_game in gametime_warning:
         game_str += '\nCheck local listing for game time and opponent.\n'
 
     return game_str
 
 
+# Print record information
 def record(results, schools):
     wins = 0
     losses = 0
@@ -204,6 +182,8 @@ def record(results, schools):
     w_l_record = [wins, losses]
     return w_l_record
 
+
+# Below is code that can be adapted to send email updates with this information
 
 # Store schools and dates together as a tuple
 # big_list = list(zip(schools, dates))
@@ -326,17 +306,47 @@ if __name__ == '__main__':
     # parser.add_argument('-hd', '--header', default='y', help='header? <y or n>')
     in_args = parser.parse_args()
 
-    new_game_time, gametime_warning = game_times(times)
+    # Hard coded schedule/results info so that I wouldn't have to keep pulling data from website --
+    # --> Remove the below lines to scrape current data and uncomment above. -- can put scraping in
+    # a function when necessary
 
-    new_team_name = clean_opponent_names()
+    schools_list = ['UNC Pembroke (exhibition)', 'Tulane', 'Chattanooga', 'Long Beach State',
+               'Hawaii (8:00 PM HT/1:00 AM ET)',
+               'Chaminade', 'Oklahoma State', 'Wisconsin', 'Indiana', 'Radford', 'Davidson', 'Tennessee', 'Kentucky',
+               'Northern Iowa', 'Monmouth', 'Georgia Tech *', 'Clemson *', 'N.C. State *', 'Wake Forest *',
+               'Florida State *', 'Syracuse *', 'Boston College *', 'Virginia Tech *', 'Miami *', 'Pittsburgh *',
+               'Notre Dame *', 'Duke *', 'N.C. State *', 'Virginia *', 'Louisville *', 'Pittsburgh *', 'Virginia *',
+               'Duke *', 'Miami (ACC Quarterfinal)', 'Duke ACC Semifinal', 'ACC Final']
+    dates_list = ['Fri, Nov 04', 'Fri, Nov 11', 'Sun, Nov 13', 'Tue, Nov 15', 'Fri, Nov 18', 'Mon, Nov 21', 'Tue, Nov 22',
+             'Wed, Nov 23', 'Wed, Nov 30', 'Sun, Dec 04', 'Wed, Dec 07', 'Sun, Dec 11', 'Sat, Dec 17', 'Wed, Dec 21',
+             'Wed, Dec 28', 'Sat, Dec 31', 'Tue, Jan 03', 'Sun, Jan 08', 'Wed, Jan 11', 'Sat, Jan 14', 'Mon, Jan 16',
+             'Sat, Jan 21', 'Thu, Jan 26', 'Sat, Jan 28', 'Tue, Jan 31', 'Sun, Feb 05', 'Thu, Feb 09', 'Wed, Feb 15',
+             'Sat, Feb 18', 'Wed, Feb 22', 'Sat, Feb 25', 'Mon, Feb 27', 'Sat, Mar 04', 'Thu, Mar 09', 'Fri, Mar 10',
+             'Sat, Mar 11']
+    times = ['7:30 PM', '9:00 PM', '4:00 PM', '8:00 PM', '1:00 AM', '11:30 PM', '10:30 PM', '9:30 PM', '9:00 PM',
+             '2:00 PM',
+             '9:00 PM', '5:00 PM', '5:45 PM', '8:00 PM', '7:00 PM', '12:00 PM', '7:00 PM', '1:00 PM', '8:00 PM',
+             '2:00 PM',
+             '7:00 PM', '12:00 PM', '8:00 PM', '1:00 PM', '7:00 PM', '1:00 PM', '8:00 PM', '8:00 PM', '8:20 PM',
+             '9:00 PM',
+             '12:00 PM', '7:00 PM', '8:00 PM', '12:00 PM', '7:00 PM', '9:00 PM', '7:00PM', 'TBA']
+    results_list = ['124 - 63', '95 - 75(W)', '97 - 57(W)', '93 - 67(W)', '83 - 68(W)', '104 - 61(W)', '107 - 75(W)',
+               '71 - 56(W)', '67 - 76(L)', '95 - 50(W)', '83 - 74(W)', '73 - 71(W)', '100 - 103(L)', '85 - 42(W)',
+               '102 - 74(W)', '63 - 75(L)', '89 - 86(W) OT', '107 - 56(W)', '93 - 87(W)', '96 - 83(W)', '85 - 68(W)',
+               '90 - 82(W)', '91 - 72(W)', '62 - 77(L)', '80 - 78(W)', '83 - 76(W)', '78 - 86(L)', '97 - 73(W)',
+               '65 - 41(W)', '74 - 63(W)', 'W', 'L', '90 - 83(W)', 'W', '', '', '', '']
 
-    date_year = set_year(dates)
+    n_game_time, gt_warning = game_times(times)
 
-    dt_new, dt_raw = pretty_dates(date_year)
+    n_team_name = clean_opponent_names(schools_list)
 
-    GAMEDAY = get_latest_time(dt_raw, new_team_name, gametime_warning)
+    dt_year = set_year(dates_list, n_game_time)
 
-    res_record = record(results, schools)
+    date_new, date_raw = pretty_dates(dt_year)
+
+    GAMEDAY = get_latest_time(date_raw, n_team_name, gt_warning, results_list, date_new)
+
+    res_record = record(results_list, schools_list)
 
     print(GAMEDAY)
     record_str = '%s-%s' % (res_record[0], res_record[1])
